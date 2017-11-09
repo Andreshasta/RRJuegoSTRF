@@ -1,10 +1,7 @@
 package modelo.algoritmo;
 
+import estructuras.ColaW;
 import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.Queue;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import modelo.Procesador;
@@ -34,11 +31,11 @@ public class Ejecutor {
         HttpSession ses = (HttpSession) x.getExternalContext().getSession(false);
         RequestContext.getCurrentInstance().update("frmjuego");
 //        System.out.println("ejecutor: " + procesador);
-        while (!procesador.getCpu().isEmpty() || !procesador.getListos().isEmpty()
-                || !procesador.getSuspendidos().isEmpty() || !procesador.getBloqueados().isEmpty()) {
+        while (!procesador.getCpu().comprobarVacio() || !procesador.getListos().comprobarVacio()
+                || !procesador.getSuspendidos().comprobarVacio() || !procesador.getBloqueados().comprobarVacio()) {
             hacerSalto(procesador);
             System.out.println("pasarinicial: " + procesador);
-            ejecutar((Proceso) (procesador.getCpu().peek()));
+            ejecutar((Proceso) (procesador.getCpu().desapilar().getProceso()));
             RequestContext.getCurrentInstance().update("frmjuego");
 //            System.out.println("ejecutado: " + procesador);s
         }
@@ -65,21 +62,21 @@ public class Ejecutor {
     }
 
     public void calcularQuantum(Procesador procesador) {
-        if (!procesador.getListos().isEmpty()) {
-            Queue cola = new LinkedList();
-            cola.addAll(procesador.getListos());
-            while (!cola.isEmpty()) {
-                Proceso proceso = (Proceso) (cola.poll());
+        if (!procesador.getListos().comprobarVacio()) {
+            ColaW cola = new ColaW();
+            cola.apilarCola(procesador.getListos());
+            while (!cola.comprobarVacio()) {
+                Proceso proceso = (Proceso) (cola.consultaCabeza().getProceso());
 //                if ((proceso.getDuracion() - this.quantum.getTimeInMillis()) < 0) {
                 if ((proceso.getTrestante() - this.quantum.getTimeInMillis()) < 0) {
                     this.quantum.setTimeInMillis(proceso.getDuracion());
                 }
             }
         } else {
-            if (!procesador.getSuspendidos().isEmpty()) {
+            if (!procesador.getSuspendidos().comprobarVacio()) {
                 pasarDeSusAListos(procesador);
             }
-            if (!procesador.getBloqueados().isEmpty()) {
+            if (!procesador.getBloqueados().comprobarVacio()) {
                 pasarDeBloqAListos(procesador);
             }
         }
@@ -88,8 +85,8 @@ public class Ejecutor {
     public void hacerSalto(Procesador procesador) {
         System.out.println("hacerSalto_1: " + procesador);
         Proceso transicion = null;
-        if (!procesador.getCpu().isEmpty()) {
-            transicion = (Proceso) (procesador.getCpu().poll());
+        if (!procesador.getCpu().comprobarVacio()) {
+            transicion = (Proceso) (procesador.getCpu().consultaCabeza().getProceso());
         }
         try {
             pasarACpu(procesador);
@@ -124,40 +121,40 @@ public class Ejecutor {
     public void pasarACpu(Procesador procesador) {
 //        System.out.println("pasarACpu: " + procesador);
         procesador.toString();
-        if (!procesador.getListos().isEmpty()) {
-            procesador.addCpu((Proceso) (procesador.getListos().poll()));
+        if (!procesador.getListos().comprobarVacio()) {
+            procesador.addCpu((Proceso) (procesador.getListos().consultaCabeza().getProceso()));
         }
     }
 
     public void pasarABloqueado(Procesador procesador) {
 //        System.out.println("pasarABloqueado: " + procesador);
         procesador.toString();
-        if (!procesador.getCpu().isEmpty()) {
-            procesador.addBloqueados((Proceso) (procesador.getCpu().poll()));
+        if (!procesador.getCpu().comprobarVacio()) {
+            procesador.addBloqueados((Proceso) (procesador.getCpu().consultaCabeza().getProceso()));
         }
     }
 
     public void pasarASuspendido(Procesador procesador) {
 //        System.out.println("pasarASuspendido: " + procesador);
         procesador.toString();
-        if (!procesador.getCpu().isEmpty()) {
-            procesador.addSuspendidos((Proceso) (procesador.getCpu().poll()));
+        if (!procesador.getCpu().comprobarVacio()) {
+            procesador.addSuspendidos((Proceso) (procesador.getCpu().consultaCabeza().getProceso()));
         }
     }
 
     public void pasarDeSusAListos(Procesador procesador) {
 //        System.out.println("pasarDeSusAListos: " + procesador);
         procesador.toString();
-        if (!procesador.getSuspendidos().isEmpty()) {
-            procesador.addListos((Proceso) (procesador.getSuspendidos().poll()));
+        if (!procesador.getSuspendidos().comprobarVacio()) {
+            procesador.addListos((Proceso) (procesador.getSuspendidos().consultaCabeza().getProceso()));
         }
     }
 
     public void pasarDeBloqAListos(Procesador procesador) {
 //        System.out.println("pasarDeBloqAListos: " + procesador);
         procesador.toString();
-        if (!procesador.getBloqueados().isEmpty()) {
-            procesador.addListos((Proceso) (procesador.getBloqueados().poll()));
+        if (!procesador.getBloqueados().comprobarVacio()) {
+            procesador.addListos((Proceso) (procesador.getBloqueados().consultaCabeza().getProceso()));
         }
     }
 

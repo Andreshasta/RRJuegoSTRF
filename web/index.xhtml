@@ -17,8 +17,10 @@
             <p:growl id="msgs" showDetail="true" />
 
             <p:panel id="juegoPanel" header="Juego" style="margin-bottom:20px; position: absolute; top: 0px; left: 0px; width: 500px;height: 400px;">
-                <div id="Juego"></div>
-                <div style="display: none;">
+                <div id="Juego">
+                    
+                </div>
+                <div>
                     <p:commandButton value="Iniciar" actionListener="#{panelView.iniciarejecucion()}" />
                 </div>
             </p:panel>
@@ -56,124 +58,140 @@
                     </p:menu>
                 </f:facet>
                 <p:dataTable id="tb1fnd" widgetVar="tb1fnd" value="#{panelView.procesador1.finalizados}"
-                             var="proceso" scrollable="true" rowKey="proceso.id" rows="3" scrollRows="3">
+                             var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" rows="3" scrollRows="3">
                     <f:facet name="header">
                         Finalizados
                     </f:facet>
                     <p:column headerText="ID" >
-                        <h:outputText value="#{proceso.id}" />
+                        <h:outputText value="#{nodo.nodo.proceso.id}" />
                     </p:column>
                     <p:column headerText="Nombre" >
-                        <h:outputText value="#{proceso.nombre}" />
+                        <h:outputText value="#{nodo.nodo.proceso.nombre}" />
                     </p:column>
                     <p:column headerText="Tiempo ejecucion" >
-                        <h:outputText value="#{proceso.trestante}" />
+                        <h:outputText value="#{nodo.nodo.proceso.trestante}" />
                     </p:column>
                     <p:column headerText="Quantum" > 
-                        <h:outputText value="#{proceso.quantum}" />
+                        <h:outputText value="#{nodo.nodo.proceso.quantum}" />
                     </p:column>
                 </p:dataTable>
             </p:panel>
             <p:panel id="procesador1" header="Procesador 1" style="margin-bottom:20px; position: absolute; left: 550px;top: 0px; width: 1000px;">
                 <div style="display: flex;">
                     <p:dataTable id="tb1cpu" widgetVar="tb1cpu" value="#{panelView.procesador1.cpu}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             CPU
                         </f:facet>
                         <p:column headerText="ID" >
-                            <h:outputText value="#{proceso.id}" />
+                            <h:outputText value="#{nodo.nodo.proceso.id}" />
                         </p:column>
                         <p:column headerText="Nombre" >
-                            <h:outputText value="#{proceso.nombre}" />
+                            <h:outputText value="#{nodo.nodo.proceso.nombre}" />
                         </p:column>
                         <p:column headerText="Tiempo ejecucion" >
-                            <h:outputText value="#{proceso.trestante}" />
+                            <h:outputText value="#{nodo.nodo.proceso.trestante}" />
                         </p:column>
                         <p:column headerText="Quantum" > 
-                            <h:outputText value="#{proceso.quantum}" />
+                            <h:outputText value="#{nodo.nodo.proceso.quantum}" />
                         </p:column>
                     </p:dataTable>
                     <p:dataTable id="tb1listos" widgetVar="tb1listos" value="#{panelView.procesador1.listos}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             Listos
                         </f:facet>
                         <p:column headerText="ID" >
-                            <h:outputText value="#{proceso.id}" />
+                            <h:outputText value="#{nodo.nodo.proceso.id}" />
                         </p:column>
                         <p:column headerText="Nombre" >
-                            <h:outputText value="#{proceso.nombre}" />
+                            <h:outputText value="#{nodo.nodo.proceso.nombre}" />
                         </p:column>
                         <p:column headerText="Tiempo ejecucion" >
-                            <h:outputText value="#{proceso.trestante}" />
+                            <h:outputText value="#{nodo.nodo.proceso.trestante}" />
                         </p:column>
                         <p:column headerText="Quantum" >
-                            <h:outputText value="#{proceso.quantum}" />
+                            <h:outputText value="#{nodo.nodo.proceso.quantum}" />
                         </p:column>
                     </p:dataTable>
                     <p:dataTable id="tb1sus" widgetVar="tb1sus" value="#{panelView.procesador1.suspendidos}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             Suspendidos
                         </f:facet>
-                        <p:column headerText="ID" />
-                        <p:column headerText="Nombre" />
-                        <p:column headerText="Tiempo ejecucion" />
-                        <p:column headerText="tiempo suspension" />
+                        <p:column headerText="ID" >
+                            <h:outputText value="#{nodo.nodo.proceso.id}" />
+                        </p:column>
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{nodo.nodo.proceso.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Tiempo ejecucion" >
+                            <h:outputText value="#{nodo.nodo.proceso.duracion-nodo.nodo.proceso.trestante}" />
+                        </p:column>
+                        <p:column headerText="tiempo suspension" >
+                            <h:outputText value="#{nodo.nodo.proceso.duracion}" />
+                        </p:column>
                     </p:dataTable>
                     <p:dataTable id="tblblq" widgetVar="tblblq" value="#{panelView.procesador1.bloqueados}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             Bloqueados
                         </f:facet>
-                        <p:column headerText="ID" />
-                        <p:column headerText="Nombre" />
-                        <p:column headerText="Tiempo ejecucion" />
-                        <p:column headerText="tiempo bloqueo" />
+                        <p:column headerText="ID" >
+                            <h:outputText value="#{nodo.nodo.proceso.id}" />
+                        </p:column>
+                        <p:column headerText="Nombre" >
+                            <h:outputText value="#{nodo.nodo.proceso.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Tiempo ejecucion" >
+                            <h:outputText value="#{nodo.nodo.proceso.duracion-nodo.nodo.proceso.trestante}" />
+                        </p:column>
+                        <p:column headerText="tiempo bloqueo" >
+                            <h:outputText value="#{nodo.nodo.proceso.duracion}" />
+                        </p:column>
                     </p:dataTable>
                 </div>
             </p:panel>
             <p:panel id="procesador2" header="Procesador 2" style="margin-bottom:20px; position: absolute;left: 550px;top: 220px;width: 1000px;height: 200px;">
                 <div style="display: flex;">
                     <p:dataTable id="tb2cpu" widgetVar="tb1cpu" value="#{panelView.procesador2.cpu}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             CPU
                         </f:facet>
                         <p:column headerText="ID" >
-                            <h:outputText value="#{proceso.id}" />
+                            <h:outputText value="#{nodo.nodo.proceso.id}" />
                         </p:column>
                         <p:column headerText="Nombre" >
-                            <h:outputText value="#{proceso.nombre}" />
+                            <h:outputText value="#{nodo.nodo.proceso.nombre}" />
                         </p:column>
                         <p:column headerText="Tiempo ejecucion" >
-                            <h:outputText value="#{proceso.trestante}" />
+                            <h:outputText value="#{nodo.nodo.proceso.trestante}" />
                         </p:column>
                         <p:column headerText="Quantum" > 
-                            <h:outputText value="#{proceso.quantum}" />
+                            <h:outputText value="#{nodo.nodo.proceso.quantum}" />
                         </p:column>
                     </p:dataTable>
                     <p:dataTable id="tb2listos" widgetVar="tb1listos" value="#{panelView.procesador2.listos}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             Listos
                         </f:facet>
                         <p:column headerText="ID" >
-                            <h:outputText value="#{proceso.id}" />
+                            <h:outputText value="#{nodo.nodo.proceso.id}" />
                         </p:column>
                         <p:column headerText="Nombre" >
-                            <h:outputText value="#{proceso.nombre}" />
+                            <h:outputText value="#{nodo.nodo.proceso.nombre}" />
                         </p:column>
                         <p:column headerText="Tiempo ejecucion" >
-                            <h:outputText value="#{proceso.trestante}" />
+                            <h:outputText value="#{nodo.nodo.proceso.trestante}" />
                         </p:column>
                         <p:column headerText="Quantum" >
-                            <h:outputText value="#{proceso.quantum}" />
+                            <h:outputText value="#{nodo.nodo.proceso.quantum}" />
                         </p:column>
                     </p:dataTable>
                     <p:dataTable id="tb2sus" widgetVar="tb1sus" value="#{panelView.procesador2.suspendidos}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             Suspendidos
                         </f:facet>
@@ -183,7 +201,7 @@
                         <p:column headerText="tiempo suspension" />
                     </p:dataTable>
                     <p:dataTable id="tb2blq" widgetVar="tblblq" value="#{panelView.procesador2.bloqueados}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             Bloqueados
                         </f:facet>
@@ -197,43 +215,43 @@
             <p:panel id="procesador3" header="Procesador 3" style="margin-bottom:20px; position: absolute;left: 550px;top: 440px;width: 1000px;height: 200px;">
                 <div style="display: flex;">
                     <p:dataTable id="tb3cpu" widgetVar="tb3cpu" value="#{panelView.procesador3.cpu}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             CPU
                         </f:facet>
                         <p:column headerText="ID" >
-                            <h:outputText value="#{proceso.id}" />
+                            <h:outputText value="#{nodo.nodo.proceso.id}" />
                         </p:column>
                         <p:column headerText="Nombre" >
-                            <h:outputText value="#{proceso.nombre}" />
+                            <h:outputText value="#{nodo.nodo.proceso.nombre}" />
                         </p:column>
                         <p:column headerText="Tiempo ejecucion" >
-                            <h:outputText value="#{proceso.trestante}" />
+                            <h:outputText value="#{nodo.nodo.proceso.trestante}" />
                         </p:column>
                         <p:column headerText="Quantum" > 
-                            <h:outputText value="#{proceso.quantum}" />
+                            <h:outputText value="#{nodo.nodo.proceso.quantum}" />
                         </p:column>
                     </p:dataTable>
                     <p:dataTable id="tb3listos" widgetVar="tb3listos" value="#{panelView.procesador3.listos}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             Listos
                         </f:facet>
                         <p:column headerText="ID" >
-                            <h:outputText value="#{proceso.id}" />
+                            <h:outputText value="#{nodo.nodo.proceso.id}" />
                         </p:column>
                         <p:column headerText="Nombre" >
-                            <h:outputText value="#{proceso.nombre}" />
+                            <h:outputText value="#{nodo.nodo.proceso.nombre}" />
                         </p:column>
                         <p:column headerText="Tiempo ejecucion" >
-                            <h:outputText value="#{proceso.trestante}" />
+                            <h:outputText value="#{nodo.nodo.proceso.trestante}" />
                         </p:column>
                         <p:column headerText="Quantum" >
-                            <h:outputText value="#{proceso.quantum}" />
+                            <h:outputText value="#{nodo.nodo.proceso.quantum}" />
                         </p:column>
                     </p:dataTable>
                     <p:dataTable id="tb3sus" widgetVar="tb3sus" value="#{panelView.procesador3.suspendidos}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             Suspendidos
                         </f:facet>
@@ -243,7 +261,7 @@
                         <p:column headerText="tiempo suspension" />
                     </p:dataTable>
                     <p:dataTable id="tb3blq" widgetVar="tb3blq" value="#{panelView.procesador3.bloqueados}"
-                                 var="proceso" scrollable="true" rowKey="proceso.id" scrollHeight="90">
+                                 var="nodo" scrollable="true" rowKey="nodo.nodo.proceso.id" scrollHeight="90">
                         <f:facet name="header">
                             Bloqueados
                         </f:facet>

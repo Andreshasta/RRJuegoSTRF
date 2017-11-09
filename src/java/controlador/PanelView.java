@@ -1,8 +1,8 @@
 package controlador;
 
+import estructuras.ColaW;
+import estructuras.ICola;
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.Queue;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -25,14 +25,14 @@ public class PanelView implements Serializable {
     Procesador procesador1;
     Procesador procesador2;
     Procesador procesador3;
-    Queue colaFin;
+    ICola colaFin;
     Ejecutor ejecutor;
     
     public PanelView() {
         procesador1 = new Procesador();
         procesador2 = new Procesador();
         procesador3 = new Procesador();
-        colaFin = new LinkedList();
+        colaFin = new ColaW();
         ejecutor = new Ejecutor();
     }
 
@@ -120,15 +120,15 @@ public class PanelView implements Serializable {
         this.procesador3 = procesador3;
     }
     
-    public Queue getColaFin() {
+    public ICola getColaFin() {
         colaFin.clear();
-        colaFin.addAll(procesador1.getFinalizados());
-        colaFin.addAll(procesador2.getFinalizados());
-        colaFin.addAll(procesador3.getFinalizados());
+        colaFin.apilarCola(procesador1.getFinalizados());
+        colaFin.apilarCola(procesador2.getFinalizados());
+        colaFin.apilarCola(procesador3.getFinalizados());
         return colaFin;
     }
     
-    public void setColaFin(Queue colaFin) {
+    public void setColaFin(ICola colaFin) {
         this.colaFin = colaFin;
     }
     

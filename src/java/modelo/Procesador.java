@@ -1,7 +1,7 @@
 package modelo;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import estructuras.ColaW;
+import estructuras.ICola;
 import modelo.procesos.Proceso;
 
 /**
@@ -10,25 +10,25 @@ import modelo.procesos.Proceso;
  */
 public class Procesador {
 
-    private Queue cpu;
-    private Queue listos;
-    private Queue suspendidos;
-    private Queue bloqueados;
-    private Queue finalizados;
+    private ICola cpu;
+    private ICola listos;
+    private ICola suspendidos;
+    private ICola bloqueados;
+    private ICola finalizados;
 
     public Procesador() {
-        cpu = new LinkedList();
-        listos = new LinkedList();
-        suspendidos = new LinkedList();
-        bloqueados = new LinkedList();
-        finalizados = new LinkedList();
+        cpu = new ColaW();
+        listos = new ColaW();
+        suspendidos = new ColaW();
+        bloqueados = new ColaW();
+        finalizados = new ColaW();
     }
 
-    public Queue getCpu() {
+    public ICola getCpu() {
         return cpu;
     }
 
-    public void setCpu(Queue cpu) {
+    public void setCpu(ColaW cpu) {
         this.cpu = cpu;
     }
 
@@ -36,11 +36,11 @@ public class Procesador {
         cpu.add(elemento);
     }
 
-    public Queue getListos() {
+    public ICola getListos() {
         return listos;
     }
 
-    public void setListos(Queue listos) {
+    public void setListos(ColaW listos) {
         this.listos = listos;
     }
 
@@ -48,11 +48,11 @@ public class Procesador {
         listos.add(elemento);
     }
 
-    public Queue getSuspendidos() {
+    public ICola getSuspendidos() {
         return suspendidos;
     }
 
-    public void setSuspendidos(Queue suspendidos) {
+    public void setSuspendidos(ColaW suspendidos) {
         this.suspendidos = suspendidos;
     }
 
@@ -60,11 +60,11 @@ public class Procesador {
         suspendidos.add(elemento);
     }
 
-    public Queue getBloqueados() {
+    public ICola getBloqueados() {
         return bloqueados;
     }
 
-    public void setBloqueados(Queue bloqueados) {
+    public void setBloqueados(ColaW bloqueados) {
         this.bloqueados = bloqueados;
     }
 
@@ -72,11 +72,11 @@ public class Procesador {
         bloqueados.add(elemento);
     }
 
-    public Queue getFinalizados() {
+    public ICola getFinalizados() {
         return finalizados;
     }
 
-    public void setFinalizados(Queue finalizados) {
+    public void setFinalizados(ColaW finalizados) {
         this.finalizados = finalizados;
     }
 
